@@ -87,14 +87,14 @@ function Home() {
     <div>
       <Navbar />
       <div className="h-screen w-screen flex px-10" style={backgroundStyle}>
-        <div className="w-2/3 pt-52 text-center text-7xl text-indigo-900">
+        <div className="w-2/3 pt-44 text-center text-7xl text-indigo-900">
           Analyse Call
           <div className="px-5 pt-4">
             <Button className="bg-indigo-900 text-lg">Upload</Button>
             <div></div>
             <Button
               className={`bg-indigo-900 ml-4 text-lg ${
-                recording ? "bg-red-500" : ""
+                recording ? "bg-indigo-800" : ""
               }`}
               onClick={recording ? stopRecording : startRecording}
             >
