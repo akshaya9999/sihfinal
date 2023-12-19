@@ -86,7 +86,7 @@ function Home() {
   return (
     <div>
       <Navbar />
-      <div className="h-screen w-screen flex px-10" style={backgroundStyle}>
+      <div className="h-screen w-screen flex " style={backgroundStyle}>
         <div className="w-2/3 pt-44 text-center text-7xl text-indigo-900">
           Analyse Call
           <div className="px-5 pt-4">
@@ -113,7 +113,7 @@ function Home() {
             <LineChart />
           </div>
         </div>
-        <div className="w-1/3 m-0 pt-24 ">
+        <div className="w-1/3 m-0 pt-24 mr-11">
           <PieChart />
           <div className="justify-end items-center text-center pt-10 text-2xl">
             History
