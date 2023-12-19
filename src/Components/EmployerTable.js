@@ -1,6 +1,8 @@
 import React from "react";
 
 const EmployerTable = () => {
+    const happyCount=5;
+    const unhappyCount=5;
   return (
     <div className="relative overflow-x-auto">
       <table className="w-full text-sm text-left rtl:text-right text-white dark:text-white">
@@ -19,6 +21,9 @@ const EmployerTable = () => {
               Overall Customer Emotion
             </th>
             <th scope="col" className="px-6 py-3">
+              Customer happy count
+            </th>
+            <th scope="col" className="px-6 py-3">
               Customer unhappy count
             </th>
           </tr>
@@ -34,7 +39,8 @@ const EmployerTable = () => {
             <td className="px-6 py-4">10:06:23</td>
             <td className="px-6 py-4">10:00</td>
             <td className="px-6 py-4">Happy</td>
-            <td className="px-6 py-4">5</td>
+            <td className="px-6 py-4">{happyCount}</td>
+            <td className="px-6 py-4">{unhappyCount}</td>
           </tr>
           
         </tbody>
