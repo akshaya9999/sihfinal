@@ -35,7 +35,7 @@ function PieChart() {
 
   return (
     <div className="shadow-lg rounded-lg overflow-hidden">
-      <div className="py-3 px-5 bg-gray-50">Pie chart</div>
+      <div className="py-3 px-5 bg-gray-50">Performance</div>
       <canvas className="p-1 ml-40 mr-40" id="chartPie"></canvas>
     </div>
   );
