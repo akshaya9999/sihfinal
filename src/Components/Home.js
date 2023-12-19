@@ -7,6 +7,9 @@ import bgimage from "../assets/bg3.avif";
 import Table from "./Table";
 import { Button } from "@material-tailwind/react";
 import LineChart from "./LineChart";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 
 function Home() {
   const backgroundStyle = {
@@ -14,6 +17,19 @@ function Home() {
     backgroundSize: "cover",
     backgroundPosition: "center",
   };
+  const {
+    transcript,
+    listening,
+    resetTranscript,
+    browserSupportsSpeechRecognition,
+  } = useSpeechRecognition();
+
+  if (!browserSupportsSpeechRecognition) {
+    return <span>Browser doesn't support speech recognition.</span>;
+  }
+  if (!browserSupportsSpeechRecognition) {
+    return <span>Browser doesn't support speech recognition.</span>;
+  }
 
   return (
     <div>
@@ -25,7 +41,28 @@ function Home() {
           Analyse Call
           <div className="px-5 pt-4">
             <Button className="bg-indigo-900 text-lg">Upload</Button>
-            <Button className="bg-indigo-900 ml-4 text-lg">Record</Button>
+            <div></div>
+            <Button
+              className="bg-indigo-900 text-lg "
+              onClick={SpeechRecognition.startListening}
+            >
+              Start Recording
+            </Button>
+            <Button
+              className="bg-indigo-900 ml-4 text-lg"
+              onClick={SpeechRecognition.stopListening}
+            >
+              Stop
+            </Button>
+            <Button
+              className="bg-indigo-900 ml-4 text-lg"
+              onClick={resetTranscript}
+            >
+              Reset
+            </Button>
+
+            <p className="text-sm pt-5">Microphone: {listening ? "on" : "off"}</p>
+            <p className="text-sm">{transcript}</p>
           </div>
           <div className="flex justify-center items-center pt-24">
             <LineChart />
