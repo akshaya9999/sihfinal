@@ -23,7 +23,7 @@ function Home() {
   const startRecording = () => {
     wavRecorder.start();
     setRecording(true);
-    SpeechRecognition.startListening();
+    SpeechRecognition.startListening({ continuous: true });
   };
 
   const stopRecording = () => {
