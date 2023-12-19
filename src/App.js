@@ -12,6 +12,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/speech" element={<SpeechToText />} />
         <Route path="/employer" element={<Employer />} />
+        {/* <Route path="/audio" element={<AudioRec />} /> */}
       </Routes>
     </div>
   );
