@@ -12,7 +12,6 @@ import PieChart from "./Chart";
 import Table from "./Table";
 import LineChart from "./LineChart";
 import { app } from "../Firebase/config";
-import SimpleContainer from "./SimpleContainer";
 const auth = getAuth(app);
 function Home() {
 
@@ -46,6 +45,7 @@ function Home() {
     // sendBlobToServer(wavBlob);
   };
 
+  
   const saveWavToFile = (blob, fileName) => {
     const wavBlob = new Blob([blob], { type: "audio/wav" });
 
@@ -60,22 +60,22 @@ function Home() {
   };
 
   // Send the blob to the server
-  const sendBlobToServer = (blob) => {
-    const formData = new FormData();
-    formData.append("audio", blob, "recordedAudio.wav");
+  // const sendBlobToServer = (blob) => {
+  //   const formData = new FormData();
+  //   formData.append("audio", blob, "recordedAudio.wav");
 
-    // Check if FormData is supported and the blob is a valid Blob instance
-    if (window.FormData && blob instanceof Blob) {
-      fetch("http://localhost:5000/upload", {
-        method: "POST",
-        body: formData,
-      }).then((response) => {
-        console.log(response);
-      });
-    } else {
-      console.error("FormData not supported or invalid Blob instance");
-    }
-  };
+  //   // Check if FormData is supported and the blob is a valid Blob instance
+  //   if (window.FormData && blob instanceof Blob) {
+  //     fetch("http://localhost:5000/upload", {
+  //       method: "POST",
+  //       body: formData,
+  //     }).then((response) => {
+  //       console.log(response);
+  //     });
+  //   } else {
+  //     console.error("FormData not supported or invalid Blob instance");
+  //   }
+  // };
 
   const {
     listening,
@@ -110,6 +110,17 @@ function Home() {
 
   //   fetchData();
   // }, []);
+  axios.post("https://sih.azurewebsites.net/getEmps/", { 'empName': 'John' })
+  .then((response) => {
+    console.log(response.status); // Log status code
+    console.log(response.data);   // Log response data
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
+
+
 
   return (
     <div>
