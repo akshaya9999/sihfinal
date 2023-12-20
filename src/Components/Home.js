@@ -9,6 +9,7 @@ import Navbar from "./Navbar";
 import PieChart from "./Chart";
 import Table from "./Table";
 import LineChart from "./LineChart";
+import axios from "axios";
 
 function Home() {
   const backgroundStyle = {
@@ -82,6 +83,29 @@ function Home() {
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>;
   }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://sih.azurewebsites.net/getEmp/"
+        );
+        if (
+          response.data &&
+          Array.isArray(response.data) &&
+          response.data.length > 0
+        ) {
+          setQuestions(response.data);
+        } else {
+          console.error("F.");
+        }
+      } catch (error) {
+        console.error("err", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div>

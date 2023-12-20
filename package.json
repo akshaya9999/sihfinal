@@ -10,6 +10,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "apexcharts": "^3.45.0",
+    "axios": "^1.6.2",
     "bootstrap": "^5.3.2",
     "capacitor-voice-recorder": "^5.0.0",
     "capacitor-voice-recorder-wav": "^5.0.2",
@@ -24,6 +25,7 @@
     "react-router-dom": "^6.21.0",
     "react-scripts": "5.0.1",
     "react-speech-recognition": "^3.10.0",
+    "tw-elements-react": "^1.0.0-alpha2",
     "web-vitals": "^2.1.4",
     "webm-to-wav-converter": "^1.1.0",
     "whisper-node": "^1.1.1"
