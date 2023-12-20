@@ -4,17 +4,16 @@ import { WavRecorder } from "webm-to-wav-converter";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
-
 import { getAuth } from "firebase/auth";
 import bgimage from "../assets/bg3.avif";
 import Navbar from "./Navbar";
 import PieChart from "./Chart";
 import Table from "./Table";
 import LineChart from "./LineChart";
-import axios from "axios";
 import SimpleContainer from "./SimpleContainer";
-function Home() {
+import axios from "axios";
 
+function Home() {
   const backgroundStyle = {
     backgroundImage: `url(${bgimage})`,
     backgroundSize: "cover",
@@ -34,7 +33,6 @@ function Home() {
     wavRecorder.stop();
     setRecording(false);
     SpeechRecognition.stopListening();
-    // send the transcript to the server 
 
     // Get the wav Blob in 16-bit encoding and default sample rate
     const wavBlob = wavRecorder.getBlob();
@@ -46,7 +44,6 @@ function Home() {
     // sendBlobToServer(wavBlob);
   };
 
-  
   const saveWavToFile = (blob, fileName) => {
     const wavBlob = new Blob([blob], { type: "audio/wav" });
 
@@ -60,24 +57,6 @@ function Home() {
     document.body.removeChild(a);
   };
 
-  // Send the blob to the server
-  // const sendBlobToServer = (blob) => {
-  //   const formData = new FormData();
-  //   formData.append("audio", blob, "recordedAudio.wav");
-
-  //   // Check if FormData is supported and the blob is a valid Blob instance
-  //   if (window.FormData && blob instanceof Blob) {
-  //     fetch("http://localhost:5000/upload", {
-  //       method: "POST",
-  //       body: formData,
-  //     }).then((response) => {
-  //       console.log(response);
-  //     });
-  //   } else {
-  //     console.error("FormData not supported or invalid Blob instance");
-  //   }
-  // };
-
   const {
     listening,
     resetTranscript,
@@ -89,39 +68,15 @@ function Home() {
     return <span>Browser doesn't support speech recognition.</span>;
   }
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         "https://sih.azurewebsites.net/getEmp/"
-  //       );
-  //       if (
-  //         response.data &&
-  //         Array.isArray(response.data) &&
-  //         response.data.length > 0
-  //       ) {
-  //         setQuestions(response.data);
-  //       } else {
-  //         console.error("F.");
-  //       }
-  //     } catch (error) {
-  //       console.error("err", error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
-  axios.post("https://sih.azurewebsites.net/getEmps/", { 'empName': 'John' })
-  .then((response) => {
-    console.log(response.status); // Log status code
-    console.log(response.data);   // Log response data
-  })
-  .catch((error) => {
-    console.error(error);
-  });
-
-
-
+  axios
+    .post("https://sih.azurewebsites.net/getEmps/", { empName: "John" })
+    .then((response) => {
+      console.log(response.status); // Log status code
+      console.log(response.data); // Log response data
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 
   return (
     <div>
@@ -148,21 +103,21 @@ function Home() {
               Microphone: {listening ? "on" : "off"}
             </p>
             <p className="text-sm">{transcript}</p>
-            
           </div>
           <div className="flex justify-center items-center pt-24">
             <LineChart />
           </div>
         </div>
-        <div className="w-1/3 m-0 pt-24 mr-11">
+        <div className="w-1/3 m-0 pt-24 mr-11 overflow-y-auto">
           <PieChart />
           <div className="justify-end items-center text-center pt-10 text-2xl">
             History
-            <div className="pt-5"></div>
-            <Table />
+            <div className="pt-5">
+              <Table />
+            </div>
           </div>
           <div>
-            <SimpleContainer/>
+            <SimpleContainer />
           </div>
         </div>
       </div>
