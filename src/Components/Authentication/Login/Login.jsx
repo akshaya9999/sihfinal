@@ -25,7 +25,6 @@ function Login() {
             const user = userCredential.user.email;
             const uuid = userCredential;
             navigate('/home');
-            // navigate('/home', {state: {user, uuid}});
         } catch (error) {
             console.log("error");
         } 
@@ -84,6 +83,7 @@ function Login() {
                 >
                     Login
                 </button>
+                
                 
 
                 

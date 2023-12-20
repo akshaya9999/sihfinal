@@ -4,23 +4,18 @@ import { WavRecorder } from "webm-to-wav-converter";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
-// import
-import { useLocation } from "react-router-dom";
 
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import bgimage from "../assets/bg3.avif";
 import Navbar from "./Navbar";
 import PieChart from "./Chart";
 import Table from "./Table";
 import LineChart from "./LineChart";
 import { app } from "../Firebase/config";
+import SimpleContainer from "./SimpleContainer";
 const auth = getAuth(app);
 function Home() {
-  // const location = useLocation();
 
-  // console.log(auth.currentUser.uid);
-  // console.log(auth.currentUser.email);
-  // console.log(auth.currentUser.displayName);
   const backgroundStyle = {
     backgroundImage: `url(${bgimage})`,
     backgroundSize: "cover",
@@ -152,6 +147,9 @@ function Home() {
             History
             <div className="pt-5"></div>
             <Table />
+          </div>
+          <div>
+            <SimpleContainer/>
           </div>
         </div>
       </div>
