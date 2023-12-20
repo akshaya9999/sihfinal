@@ -11,8 +11,8 @@ import Navbar from "./Navbar";
 import PieChart from "./Chart";
 import Table from "./Table";
 import LineChart from "./LineChart";
-import { app } from "../Firebase/config";
-const auth = getAuth(app);
+import axios from "axios";
+import SimpleContainer from "./SimpleContainer";
 function Home() {
 
   const backgroundStyle = {
@@ -34,6 +34,7 @@ function Home() {
     wavRecorder.stop();
     setRecording(false);
     SpeechRecognition.stopListening();
+    // send the transcript to the server 
 
     // Get the wav Blob in 16-bit encoding and default sample rate
     const wavBlob = wavRecorder.getBlob();
@@ -147,6 +148,7 @@ function Home() {
               Microphone: {listening ? "on" : "off"}
             </p>
             <p className="text-sm">{transcript}</p>
+            
           </div>
           <div className="flex justify-center items-center pt-24">
             <LineChart />
