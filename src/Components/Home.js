@@ -103,7 +103,7 @@ function Home() {
       <Navbar />
       <div className="h-screen w-screen flex " style={backgroundStyle}>
         <div className="w-2/3 pt-28 text-center text-7xl text-indigo-900">
-          Analyze Call
+          Analyse Call
           <div className="px-5 pt-4">
             {/* File input hidden for styling purposes */}
             <input
