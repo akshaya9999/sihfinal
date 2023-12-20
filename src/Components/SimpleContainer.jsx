@@ -36,6 +36,10 @@ export default function SimpleContainer({transcript}) {
         <Button className="bg-indigo-900 text-lg" onClick={output}>
               Upload Text
             </Button>
+          <div className='text-indigo-900 pt-2'>
+          Cautionary notice:
+Please be aware that the model may take a few minutes to respond if it has been inactive for an extended period.
+          </div>
         
         <div className='p-2'></div>
         {/* {loading && <p>Loading...</p>} */}

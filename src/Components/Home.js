@@ -31,7 +31,6 @@ function Home() {
     }
   };
 
-
   const startRecording = () => {
     wavRecorder.start();
     setRecording(true);
@@ -50,44 +49,23 @@ function Home() {
     const transcriptText = textToPromptElement ? textToPromptElement.innerText : '';
     const transc = "Hii My name is Pranav I will not take 2AC only 1AC.now whos is tho blame.";
 
-    const some = async () => {fetch(
-      'http://127.0.0.1:8000/stores/' + transcriptText
-    )
-    .then(
-      (res) =>{
-        console.log('res',res)
-      }
-    )
-  }
-    some()
-    // try {
-    //   const response = await fetch("http://127.0.0.1:8000/store/", {
-    //     method: "GET",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       text: transcriptText,
-    //       empName: "Alok",
-    //     }),
-    //   });
-
-    //   if (response.ok) {
-    //     const data = await response.json();
-    //     console.log(response.status);
-    //     console.log(data);
-    //   } else {
-    //     console.error(`Error: ${response.status} - ${response.statusText}`);
-    //   }
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    const some = async () => {
+      fetch(
+        'http://127.0.0.1:8000/stores/' + transcriptText
+      )
+        .then(
+          (res) => {
+            console.log('res', res)
+          }
+        )
+    }
+    some();
   };
+
   const refreshTable = () => {
     // Increment the key to force remounting of the component
     setRefreshKey((prevKey) => prevKey + 1);
   };
-  
 
   const saveWavToFile = (blob, fileName) => {
     const wavBlob = new Blob([blob], { type: "audio/wav" });
@@ -109,47 +87,37 @@ function Home() {
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
 
-  // useEffect(() => {
-  //   fetch("https://sih.azurewebsites.net/getEmps/")
-  //     .then((response) => {
-  //       if (response.ok) {
-  //         return response.json();
-  //       } else {
-  //         throw new Error(`Error: ${response.status} - ${response.statusText}`);
-  //       }
-  //     })
-  //     .then((data) => {
-  //       console.log(data.status); // Log status code
-  //       console.log(data.data); // Log response data
-  //       const formattedData = data.data.map((employee) => ({
-  //         ...employee,
-  //         jsonData: safeJsonParse(employee.jsonData), // Use a safe JSON parse function
-  //       }));
-  //       setEmployeeData(formattedData || []); // Assuming data is in response.data.data
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // }, []);
+  const handleUploadClick = () => {
+    // Trigger the click event on the file input
+    document.getElementById("fileInput").click();
+  };
 
-  // Safe JSON parse function
-  // const safeJsonParse = (jsonString) => {
-  //   try {
-  //     return JSON.parse(jsonString);
-  //   } catch (error) {
-  //     console.error("Error parsing JSON:", jsonString, error);
-  //     return null; // Return null or a default value if parsing fails
-  //   }
-  // };
+  const handleFileChange = (event) => {
+    // Handle the file selection here
+    const selectedFile = event.target.files[0];
+    console.log("Selected file:", selectedFile);
+  };
 
   return (
     <div key={refreshKey}>
       <Navbar />
       <div className="h-screen w-screen flex " style={backgroundStyle}>
         <div className="w-2/3 pt-28 text-center text-7xl text-indigo-900">
-          Analyse Call
+          Analyze Call
           <div className="px-5 pt-4">
-            <Button className="bg-indigo-900 text-lg">Upload</Button>
+            {/* File input hidden for styling purposes */}
+            <input
+              type="file"
+              id="fileInput"
+              style={{ display: "none" }}
+              onChange={handleFileChange}
+            />
+            <Button
+              className="bg-indigo-900 text-lg"
+              onClick={handleUploadClick}
+            >
+              Upload
+            </Button>
             <div></div>
             <Button
               className={`bg-indigo-900 ml-4 text-lg ${
@@ -166,15 +134,20 @@ function Home() {
             <p className="text-sm pt-5">
               Microphone: {listening ? "on" : "off"}
             </p>
-            <p id="textToPrompt" className="text-indigo-900 text-lg font-bold  bg-indigo-400 bg-opacity-25 p-10">{transcript}</p>
+            <p
+              id="textToPrompt"
+              className="text-indigo-900 text-lg font-bold bg-indigo-400 bg-opacity-25 p-10"
+            >
+              {transcript}
+            </p>
           </div>
           <div className="flex justify-center items-center pt-5 ">
             <LineChart />
           </div>
         </div>
         <div className="w-1/3 m-0 pt-24 mr-11 overflow-y-auto">
-        <div className="flex justify-end items-center text-center pt-5 text-2xl">
-            <Button className="bg-indigo-900 text-lg" onClick={refreshTable} >
+          <div className="flex justify-end items-center text-center pt-5 text-2xl">
+            <Button className="bg-indigo-900 text-lg" onClick={refreshTable}>
               Refresh
             </Button>
           </div>
@@ -186,7 +159,7 @@ function Home() {
             </div>
           </div>
           <div>
-            <SimpleContainer transcript={transcript}/>
+            <SimpleContainer transcript={transcript} />
           </div>
         </div>
       </div>
@@ -195,4 +168,3 @@ function Home() {
 }
 
 export default Home;
-

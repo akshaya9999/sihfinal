@@ -31,6 +31,12 @@ function Login() {
     };
 
     return (
+       <div>
+      <div className="w-screen flex h-20 z-50 bg-indigo-900 fixed drop-shadow-lg justify-between items-center px-10 text-white text-lg">
+        <p className="text-3xl font-bold font-serif">DIGITAL DEFENDERS</p>
+        
+      </div>
+    
       <div className=" h-screen w-screen" style={backgroundStyle}>
         <section className="h-screen flex items-center justify-center">
             
@@ -95,6 +101,7 @@ function Login() {
             />
           </div>
         </section>
+        </div>
         </div>
     );
 }
