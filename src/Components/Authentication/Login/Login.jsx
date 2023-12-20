@@ -22,9 +22,10 @@ function Login() {
             console.log("logged in");
             console.log({ auth });
             console.log(userCredential);
-            const user = userCredential.user;
+            const user = userCredential.user.email;
             const uuid = userCredential;
             navigate('/home');
+            // navigate('/home', {state: {user, uuid}});
         } catch (error) {
             console.log("error");
         } 

@@ -4,14 +4,23 @@ import { WavRecorder } from "webm-to-wav-converter";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
+// import
+import { useLocation } from "react-router-dom";
+
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import bgimage from "../assets/bg3.avif";
 import Navbar from "./Navbar";
 import PieChart from "./Chart";
 import Table from "./Table";
 import LineChart from "./LineChart";
-import axios from "axios";
-
+import { app } from "../Firebase/config";
+const auth = getAuth(app);
 function Home() {
+  // const location = useLocation();
+
+  // console.log(auth.currentUser.uid);
+  // console.log(auth.currentUser.email);
+  // console.log(auth.currentUser.displayName);
   const backgroundStyle = {
     backgroundImage: `url(${bgimage})`,
     backgroundSize: "cover",
@@ -84,28 +93,28 @@ function Home() {
     return <span>Browser doesn't support speech recognition.</span>;
   }
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://sih.azurewebsites.net/getEmp/"
-        );
-        if (
-          response.data &&
-          Array.isArray(response.data) &&
-          response.data.length > 0
-        ) {
-          setQuestions(response.data);
-        } else {
-          console.error("F.");
-        }
-      } catch (error) {
-        console.error("err", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         "https://sih.azurewebsites.net/getEmp/"
+  //       );
+  //       if (
+  //         response.data &&
+  //         Array.isArray(response.data) &&
+  //         response.data.length > 0
+  //       ) {
+  //         setQuestions(response.data);
+  //       } else {
+  //         console.error("F.");
+  //       }
+  //     } catch (error) {
+  //       console.error("err", error);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   return (
     <div>
