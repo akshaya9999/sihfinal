@@ -4,6 +4,7 @@ const EmployerTable = () => {
   const [employeeData, setEmployeeData] = useState([]);
   
 
+
   useEffect(() => {
     fetch("http://127.0.0.1:8000/getEmps/")
       .then((response) => {

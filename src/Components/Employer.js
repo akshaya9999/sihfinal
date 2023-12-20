@@ -2,6 +2,7 @@ import React from "react";
 import Navabar from "./Navbar";
 import EmployerTable from "./EmployerTable";
 import bgimage from "../assets/bg3.avif";
+import image from "../assets/graph.jpg";
 import { Button } from "@material-tailwind/react";
 import ChartComponent from "./EmployeeBarGraph";
 
@@ -23,8 +24,9 @@ function Employer() {
     </div>
     </div>
     
-    <div className="flex justify-center items-center pt-20">
+    <div className="flex justify-center items-center px-20">
       <EmployerTable/></div>
+      <img src={image} alt="Graph" className="pt-72 h-fit w-auto" />
     </div>
     </div>
   );
