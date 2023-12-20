@@ -1,17 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@material-tailwind/react";
 import { WavRecorder } from "webm-to-wav-converter";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
-import { getAuth } from "firebase/auth";
 import bgimage from "../assets/bg3.avif";
 import Navbar from "./Navbar";
 import PieChart from "./Chart";
 import Table from "./Table";
 import LineChart from "./LineChart";
 import SimpleContainer from "./SimpleContainer";
-import axios from "axios";
 
 function Home() {
   const backgroundStyle = {
@@ -21,7 +19,18 @@ function Home() {
   };
 
   const [recording, setRecording] = useState(false);
+  const [employeeData, setEmployeeData] = useState([]); // Define employee data state
+  const [refreshKey, setRefreshKey] = useState(0);
   const wavRecorder = new WavRecorder();
+  const safeJsonParse = (jsonString) => {
+    try {
+      return JSON.parse(jsonString);
+    } catch (error) {
+      console.error("Error parsing JSON:", jsonString, error);
+      return null;
+    }
+  };
+
 
   const startRecording = () => {
     wavRecorder.start();
@@ -29,20 +38,56 @@ function Home() {
     SpeechRecognition.startListening({ continuous: true });
   };
 
-  const stopRecording = () => {
+  const stopRecording = async () => {
     wavRecorder.stop();
     setRecording(false);
     SpeechRecognition.stopListening();
 
-    // Get the wav Blob in 16-bit encoding and default sample rate
     const wavBlob = wavRecorder.getBlob();
-
-    // Save the WAV Blob to a file on the client side
     saveWavToFile(wavBlob, "recordedAudio.wav");
 
-    // Send the recorded audio to the server
-    // sendBlobToServer(wavBlob);
+    const textToPromptElement = document.getElementById("textToPrompt");
+    const transcriptText = textToPromptElement ? textToPromptElement.innerText : '';
+    const transc = "Hii My name is Pranav I will not take 2AC only 1AC.now whos is tho blame.";
+
+    const some = async () => {fetch(
+      'http://127.0.0.1:8000/stores/' + transcriptText
+    )
+    .then(
+      (res) =>{
+        console.log('res',res)
+      }
+    )
+  }
+    some()
+    // try {
+    //   const response = await fetch("http://127.0.0.1:8000/store/", {
+    //     method: "GET",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       text: transcriptText,
+    //       empName: "Alok",
+    //     }),
+    //   });
+
+    //   if (response.ok) {
+    //     const data = await response.json();
+    //     console.log(response.status);
+    //     console.log(data);
+    //   } else {
+    //     console.error(`Error: ${response.status} - ${response.statusText}`);
+    //   }
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
+  const refreshTable = () => {
+    // Increment the key to force remounting of the component
+    setRefreshKey((prevKey) => prevKey + 1);
+  };
+  
 
   const saveWavToFile = (blob, fileName) => {
     const wavBlob = new Blob([blob], { type: "audio/wav" });
@@ -64,25 +109,44 @@ function Home() {
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
 
-  if (!browserSupportsSpeechRecognition) {
-    return <span>Browser doesn't support speech recognition.</span>;
-  }
+  // useEffect(() => {
+  //   fetch("https://sih.azurewebsites.net/getEmps/")
+  //     .then((response) => {
+  //       if (response.ok) {
+  //         return response.json();
+  //       } else {
+  //         throw new Error(`Error: ${response.status} - ${response.statusText}`);
+  //       }
+  //     })
+  //     .then((data) => {
+  //       console.log(data.status); // Log status code
+  //       console.log(data.data); // Log response data
+  //       const formattedData = data.data.map((employee) => ({
+  //         ...employee,
+  //         jsonData: safeJsonParse(employee.jsonData), // Use a safe JSON parse function
+  //       }));
+  //       setEmployeeData(formattedData || []); // Assuming data is in response.data.data
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }, []);
 
-  axios
-    .post("https://sih.azurewebsites.net/getEmps/", { empName: "John" })
-    .then((response) => {
-      console.log(response.status); // Log status code
-      console.log(response.data); // Log response data
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+  // Safe JSON parse function
+  // const safeJsonParse = (jsonString) => {
+  //   try {
+  //     return JSON.parse(jsonString);
+  //   } catch (error) {
+  //     console.error("Error parsing JSON:", jsonString, error);
+  //     return null; // Return null or a default value if parsing fails
+  //   }
+  // };
 
   return (
-    <div>
+    <div key={refreshKey}>
       <Navbar />
       <div className="h-screen w-screen flex " style={backgroundStyle}>
-        <div className="w-2/3 pt-44 text-center text-7xl text-indigo-900">
+        <div className="w-2/3 pt-28 text-center text-7xl text-indigo-900">
           Analyse Call
           <div className="px-5 pt-4">
             <Button className="bg-indigo-900 text-lg">Upload</Button>
@@ -102,22 +166,27 @@ function Home() {
             <p className="text-sm pt-5">
               Microphone: {listening ? "on" : "off"}
             </p>
-            <p className="text-sm">{transcript}</p>
+            <p id="textToPrompt" className="text-indigo-900 text-lg font-bold  bg-indigo-400 bg-opacity-25 p-10">{transcript}</p>
           </div>
-          <div className="flex justify-center items-center pt-24">
+          <div className="flex justify-center items-center pt-5 ">
             <LineChart />
           </div>
         </div>
         <div className="w-1/3 m-0 pt-24 mr-11 overflow-y-auto">
+        <div className="flex justify-end items-center text-center pt-5 text-2xl">
+            <Button className="bg-indigo-900 text-lg" onClick={refreshTable} >
+              Refresh
+            </Button>
+          </div>
           <PieChart />
-          <div className="justify-end items-center text-center pt-10 text-2xl">
+          <div className="justify-end items-center text-center pt-10 text-2xl font-bold text-indigo-900">
             History
             <div className="pt-5">
-              <Table />
+              <Table employeeData={employeeData} />
             </div>
           </div>
           <div>
-            <SimpleContainer />
+            <SimpleContainer transcript={transcript}/>
           </div>
         </div>
       </div>
@@ -126,4 +195,4 @@ function Home() {
 }
 
 export default Home;
- 
+

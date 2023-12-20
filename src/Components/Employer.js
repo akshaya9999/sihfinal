@@ -16,14 +16,14 @@ function Employer() {
     <Navabar/>
     <div className="h-screen w-screen flex " style={backgroundStyle}>
     <div className="pt-32 px-20 text-3xl text-indigo-900">
-        Top employee: Akshaya Krishnan
+       
         
     <div className="pt-20">
-    <ChartComponent/>
+    {/* <ChartComponent/> */}
     </div>
     </div>
     
-    <div className="flex justify-center items-center px-20">
+    <div className="flex justify-center items-center pt-20">
       <EmployerTable/></div>
     </div>
     </div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ApexCharts from "react-apexcharts";
 
 const LineChart = () => {
+  
   const [options, setOptions] = useState({
     chart: {
       height: "100%",
