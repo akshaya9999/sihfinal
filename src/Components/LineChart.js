@@ -3,6 +3,7 @@ import ApexCharts from "react-apexcharts";
 
 const LineChart = () => {
   
+  
   const [options, setOptions] = useState({
     chart: {
       height: "100%",
@@ -48,20 +49,20 @@ const LineChart = () => {
     },
     series: [
       {
-        name: "New users",
-        data: [6500, 6418, 6456, 6526, 6356, 6456],
+        name: "Count",
+        data: [10, 3, 5, 7, 16, 5],
         color: "#1A56DB",
       },
     ],
     xaxis: {
       categories: [
-        "01 February",
-        "02 February",
-        "03 February",
-        "04 February",
-        "05 February",
-        "06 February",
-        "07 February",
+        "HAPPY",
+        "SAD",
+        "NEUTRAL",
+        "ANGRY",
+        "HAPPY",
+        "SAD",
+        "HAPPY",
       ],
       labels: {
         show: false,
