@@ -35,7 +35,7 @@ export default function SimpleContainer() {
         {loading && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
         
-        <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }} >
+        <Box sx={{ bgcolor: '#303F9F', height: '100vh', color: 'white' }} >
         {data && <p>Data: {JSON.stringify(data)}</p>}
           </Box>
       </Container>
